@@ -1,0 +1,55 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+/* Map design tokens to Tailwind utilities: bg-ground, text-ink, border-line, rounded-md, p-4 … */
+@theme inline {
+  --color-ground: var(--ground);
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ember: var(--ember);
+  --color-on-ember: var(--on-ember);
+  --color-ember-deep: var(--ember-deep);
+  --color-ember-tint: var(--ember-tint);
+  --color-today: var(--today);
+  --color-today-tint: var(--today-tint);
+  --color-guardrail: var(--guardrail);
+  --color-guardrail-tint: var(--guardrail-tint);
+
+  --spacing-1: var(--space-1);
+  --spacing-2: var(--space-2);
+  --spacing-3: var(--space-3);
+  --spacing-4: var(--space-4);
+  --spacing-5: var(--space-5);
+  --spacing-6: var(--space-6);
+  --spacing-8: var(--space-8);
+  --spacing-target: var(--target-min);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-pill: var(--radius-pill);
+
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+}
+
+html {
+  background: var(--ground);
+}
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 22px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--today);
+  outline-offset: 2px;
+}

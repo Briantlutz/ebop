@@ -1,0 +1,68 @@
+{
+ "name": "Workspace",
+ "version": 1,
+ "color": {
+  "themes": [
+   {"id": "light", "name": "Spark Workshop (light)"},
+   {"id": "dark", "name": "Night Shift (dark)"}
+  ],
+  "tokens": [
+   {"name": "ground", "value": {"light": "#F4F1EA", "dark": "#12151C"}, "usage": "Page background. Paper by day, night ground in dark."},
+   {"name": "surface", "value": {"light": "#FFFFFF", "dark": "#1B2030"}, "usage": "Cards, sheets, the top bar and bottom nav."},
+   {"name": "surface-alt", "value": {"light": "#EEEAE0", "dark": "#262C3D"}, "usage": "Quiet fills: Up next rows, inactive segments, file chips."},
+   {"name": "ink", "value": {"light": "#111111", "dark": "#EEF1F6"}, "usage": "Primary text, and item-level buttons (Approve on a single decision, Act on one update)."},
+   {"name": "ink-muted", "value": {"light": "#4A4740", "dark": "#A9B1C2"}, "usage": "Secondary text at 14px or larger: reasons, sources, authorship lines."},
+   {"name": "line", "value": {"light": "#DDD8CC", "dark": "#2C3346"}, "usage": "Card borders and dividers."},
+   {"name": "line-strong", "value": {"light": "#C9C3B5", "dark": "#3A4258"}, "usage": "Outlined buttons, plan-shape tags, input borders."},
+   {"name": "ember", "value": {"light": "#C2410C", "dark": "#FB923C"}, "usage": "Brand. The ONE primary action per view (Pick up where I left off, Approve set, Send) and the current phase. Never for state."},
+   {"name": "on-ember", "value": {"light": "#FFFFFF", "dark": "#1A0E05"}, "usage": "Text and icons on ember."},
+   {"name": "ember-deep", "value": {"light": "#9A3412", "dark": "#FDBA74"}, "usage": "Link hover, confirmation text after an action, completed-phase marks."},
+   {"name": "ember-tint", "value": {"light": "#FFEDD5", "dark": "#3A2416"}, "usage": "Background of the current phase on the rail."},
+   {"name": "today", "value": {"light": "#1E40AF", "dark": "#93C5FD"}, "usage": "One thing for today, counts (3 for you), deadlines. Blue so it never competes with ember."},
+   {"name": "today-tint", "value": {"light": "#DBEAFE", "dark": "#172554"}, "usage": "Background of today labels and count pills."},
+   {"name": "guardrail", "value": {"light": "#A3261B", "dark": "#FCA5A5"}, "usage": "Guardrail chips (legal, medical, financial, tax, safety). Always paired with the shield icon and words."},
+   {"name": "guardrail-tint", "value": {"light": "#FDECEA", "dark": "#3A1D1D"}, "usage": "Background of guardrail chips; guardrail cards use it as a border tone."}
+  ]
+ },
+ "type": {
+  "fonts": [],
+  "families": {
+   "display": "\"Bricolage Grotesque\", system-ui, sans-serif",
+   "sans": "Inter, system-ui, sans-serif"
+  },
+  "groups": [
+   {"name": "Display", "family": "display", "styles": [
+    {"name": "display", "fontSize": "34px", "lineHeight": "40px", "fontWeight": 700},
+    {"name": "title-lg", "fontSize": "28px", "lineHeight": "34px", "fontWeight": 600},
+    {"name": "title-md", "fontSize": "22px", "lineHeight": "28px", "fontWeight": 600},
+    {"name": "title-sm", "fontSize": "17px", "lineHeight": "22px", "fontWeight": 600}
+   ]},
+   {"name": "Text", "family": "sans", "styles": [
+    {"name": "body-lg", "fontSize": "16px", "lineHeight": "24px", "fontWeight": 400},
+    {"name": "body", "fontSize": "15px", "lineHeight": "22px", "fontWeight": 400},
+    {"name": "label", "fontSize": "14px", "lineHeight": "20px", "fontWeight": 500},
+    {"name": "overline", "fontSize": "13px", "lineHeight": "18px", "fontWeight": 600}
+   ]}
+  ]
+ },
+ "spacing": {
+  "tokens": [
+   {"name": "space-1", "value": "4px", "usage": "Phase rail segment gaps."},
+   {"name": "space-2", "value": "8px", "usage": "Gaps between buttons in a row."},
+   {"name": "space-3", "value": "12px", "usage": "Gaps inside a card."},
+   {"name": "space-4", "value": "16px", "usage": "Card padding on phone; gaps between cards."},
+   {"name": "space-5", "value": "20px", "usage": "Card padding on desktop."},
+   {"name": "space-6", "value": "24px", "usage": "Column gaps."},
+   {"name": "space-8", "value": "32px", "usage": "Page padding and section gaps on desktop."},
+   {"name": "target-min", "value": "44px", "usage": "Minimum height and width of anything tappable. Primary buttons use 48px."}
+  ]
+ },
+ "radius": {
+  "tokens": [
+   {"name": "radius-sm", "value": "6px", "usage": "Buttons, tags, chips, inputs."},
+   {"name": "radius-md", "value": "8px", "usage": "Cards and list rows."},
+   {"name": "radius-lg", "value": "10px", "usage": "Large sections: the checkpoint batch, the digest."},
+   {"name": "radius-pill", "value": "999px", "usage": "Count pills (3 for you) and quick-reply chips."}
+  ]
+ }
+}
