@@ -8,7 +8,9 @@ export function claude() {
   if (!process.env.ANTHROPIC_API_KEY) {
     throw new Error("Missing ANTHROPIC_API_KEY. Add it to .env.local (server only, no NEXT_PUBLIC_ prefix).");
   }
-  client ??= new Anthropic();
+  // Fail fast instead of leaving the person watching "thinking…": one try of up to
+  // 90 seconds plus one retry, then the session shows an error with "Try again".
+  client ??= new Anthropic({ timeout: 90_000, maxRetries: 1 });
   return client;
 }
 

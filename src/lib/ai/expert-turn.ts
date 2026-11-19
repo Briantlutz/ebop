@@ -184,6 +184,12 @@ export async function runExpertTurn(supabase: Supabase, projectId: string, mode:
     });
   } catch (error) {
     console.error("Expert call failed", error);
+    if (error instanceof Anthropic.AuthenticationError || error instanceof Anthropic.PermissionDeniedError) {
+      throw new ExpertTurnError("Ebop's Claude API key isn't working. Check ANTHROPIC_API_KEY in .env.local, then try again.");
+    }
+    if (error instanceof Anthropic.APIConnectionTimeoutError) {
+      throw new ExpertTurnError(`${expert.name} took too long to answer. Try again.`);
+    }
     if (error instanceof Anthropic.RateLimitError) {
       throw new ExpertTurnError(`${expert.name} is getting a lot of requests right now. Try again in a minute.`);
     }
