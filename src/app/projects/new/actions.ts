@@ -18,10 +18,13 @@ export async function createProject(_prev: NewProjectState, formData: FormData):
     return { error: "Pick what kind of project this is.", name, planShape };
   }
 
-  const { error } = await supabase
+  const { data: project, error } = await supabase
     .from("projects")
-    .insert({ user_id: userId, name, plan_shape: planShape });
+    .insert({ user_id: userId, name, plan_shape: planShape })
+    .select("id")
+    .single();
 
-  if (error) return { error: "We couldn't save that project. Try again.", name, planShape };
-  redirect("/");
+  if (error || !project) return { error: "We couldn't save that project. Try again.", name, planShape };
+  // Straight into the first session with the Strategist.
+  redirect(`/projects/${project.id}`);
 }

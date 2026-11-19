@@ -35,4 +35,6 @@ export type ProjectCardData = {
   updated_at: string;
   phases: { name: PhaseName; state: PhaseState }[];
   forYouCount: number;
+  /** First-session questions still unanswered (0 once the Strategist has the basics). */
+  questionsLeft: number;
 };

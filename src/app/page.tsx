@@ -5,6 +5,7 @@ import { TopBar } from "@/components/top-bar";
 import { ProjectCard } from "@/components/project-card";
 import { requireUser } from "@/lib/auth";
 import type { ProjectCardData } from "@/lib/projects";
+import { INTAKE_KEYS, type Intake } from "@/lib/experts";
 
 export default function HomePage() {
   return (
@@ -23,19 +24,26 @@ async function Home() {
   await connection();
   const { supabase, userId } = await requireUser();
 
-  const [{ data: profile }, { data: projects, error }] = await Promise.all([
+  const [{ data: profile }, { data: projects, error }, { data: openItems }] = await Promise.all([
     supabase.from("profiles").select("name").eq("id", userId).maybeSingle(),
     supabase
       .from("projects")
-      .select("id, name, plan_shape, current_phase, status, created_at, updated_at, phases(name, state)")
+      .select("id, name, plan_shape, current_phase, status, intake, created_at, updated_at, phases(name, state)")
       .order("updated_at", { ascending: false }),
+    // Checkpoint items waiting on the person. Row-level security limits this to their projects.
+    supabase.from("decisions").select("project_id").eq("status", "open"),
   ]);
 
   if (error) throw new Error(error.message);
 
-  // "N for you" counts open checkpoint items and tasks waiting on the user.
-  // Those arrive in step 2; until then every project has nothing waiting.
-  const cards: ProjectCardData[] = (projects ?? []).map((p) => ({ ...p, forYouCount: 0 }));
+  // "N for you" counts open Checkpoint items (tasks waiting on the user join in step 7).
+  const forYou = new Map<string, number>();
+  for (const d of openItems ?? []) forYou.set(d.project_id, (forYou.get(d.project_id) ?? 0) + 1);
+  const cards: ProjectCardData[] = (projects ?? []).map((p) => ({
+    ...p,
+    forYouCount: forYou.get(p.id) ?? 0,
+    questionsLeft: INTAKE_KEYS.filter((k) => !(p.intake as Intake)?.[k]?.trim()).length,
+  }));
   const firstName = profile?.name?.split(" ")[0];
   const now = new Date();
 

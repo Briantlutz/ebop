@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   PHASES,
   PHASE_LABEL,
@@ -11,9 +12,14 @@ export function ProjectCard({ project, now }: { project: ProjectCardData; now: D
   const currentIndex = PHASES.indexOf(project.current_phase);
 
   return (
-    <article className="flex flex-col gap-3 rounded-md border border-line bg-surface p-4 sm:p-5">
+    <article className="relative flex flex-col gap-3 rounded-md border border-line bg-surface p-4 hover:border-line-strong sm:p-5">
       <div className="flex items-start justify-between gap-3">
-        <h3 className="type-title-sm min-w-0 break-words">{project.name}</h3>
+        <h3 className="type-title-sm min-w-0 break-words">
+          {/* The whole card is the link target; the stretched ::after keeps the markup accessible. */}
+          <Link href={`/projects/${project.id}`} className="after:absolute after:inset-0 after:rounded-md">
+            {project.name}
+          </Link>
+        </h3>
         <span className="type-label shrink-0 rounded-sm border border-line-strong px-2 py-[2px] text-ink-muted">
           {PLAN_SHAPE_LABEL[project.plan_shape]}
         </span>
@@ -68,6 +74,10 @@ function PhaseBar({ states, currentIndex }: { states: PhaseState[]; currentIndex
 
 function statusLine(project: ProjectCardData, now: Date) {
   if (project.status === "closed") return "Closed";
+  if (project.questionsLeft > 0) {
+    const n = project.questionsLeft;
+    return `First session · ${n} ${n === 1 ? "question" : "questions"} to go`;
+  }
   const phase = PHASE_LABEL[project.current_phase];
   const started = new Date(project.created_at);
   return `${phase} is open · started ${relativeDay(started, now)}`;
