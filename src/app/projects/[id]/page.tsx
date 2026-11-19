@@ -185,6 +185,8 @@ async function Session({ params }: { params: Promise<{ id: string }> }) {
         expertName={expert.name}
         intakeKey={nextKey}
         samples={nextKey ? INTAKE_SAMPLES[shape][nextKey] : []}
+        // All three answers are in but the first Checkpoint never arrived (a failed or interrupted call).
+        stalled={nextKey === null && batches.length === 0 && messages.length === 0}
         // Ember goes to the one primary action: the Checkpoint when one is open, otherwise the composer.
         primary={!activeBatch}
       />

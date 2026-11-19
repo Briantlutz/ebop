@@ -18,12 +18,14 @@ export function Composer({
   intakeKey,
   samples,
   primary,
+  stalled,
 }: {
   projectId: string;
   expertName: string;
   intakeKey: IntakeKey | null;
   samples: string[];
   primary: boolean;
+  stalled: boolean;
 }) {
   const textRef = useRef<HTMLTextAreaElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
@@ -61,7 +63,20 @@ export function Composer({
             <span className="size-1.5 animate-pulse rounded-pill bg-ink-muted [animation-delay:150ms]" />
             <span className="size-1.5 animate-pulse rounded-pill bg-ink-muted [animation-delay:300ms]" />
           </span>
-          {intakeKey === "done" ? `${expertName} is drafting your first Checkpoint…` : `${expertName} is thinking…`}
+          {intakeKey === "done" || stalled ? `${expertName} is drafting your first Checkpoint…` : `${expertName} is thinking…`}
+        </div>
+      ) : null}
+
+      {stalled && !thinking && !error ? (
+        <div className="flex flex-col items-start gap-3 rounded-md border border-line bg-surface p-4">
+          <p>Your first Checkpoint didn’t arrive. {expertName} has your three answers and can try again.</p>
+          <button
+            type="button"
+            onClick={retry}
+            className="type-label inline-flex min-h-12 items-center rounded-sm bg-ember px-5 text-on-ember"
+          >
+            Draft my first Checkpoint
+          </button>
         </div>
       ) : null}
 
